@@ -1,3 +1,10 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+.bg-primary {
+  background-color: #7064e8;
+}
+.text-primary-color {
+  color: #7064e8;
+}
