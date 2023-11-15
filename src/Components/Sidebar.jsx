@@ -12,10 +12,10 @@ const Sidebar = ({ children }) => {
       <div
         className={` ${
           isSidebarOpen ? "w-72" : "w-20 "
-        } h-screen p-5 pt-8 sticky top-0 duration-300`}
+        } h-screen p-5 pt-8 sticky top-0 duration-300 border-1 shadow-xl`}
       >
         <button
-          className={`absolute flex justify-center align-center cursor-pointer right-3 top-3 p-2 border-2 rounded-full border border-solid text-color-primary ${!isSidebarOpen}`}
+          className={`absolute flex justify-center align-center cursor-pointer bg-white shadow-xl -right-3 top-3 p-2 border-2 rounded-full border border-solid text-color-primary ${!isSidebarOpen}`}
           onClick={() => setIsSidebarOpen(!isSidebarOpen)}
         >
           {isSidebarOpen ? (
