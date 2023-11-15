@@ -1,10 +1,11 @@
-import './App.css';
+import "./App.css";
+import Routing from "./Routing";
 
 function App() {
   return (
-    <div className="App">
-      Removed Unused files
-    </div>
+    <>
+      <Routing />
+    </>
   );
 }
 
