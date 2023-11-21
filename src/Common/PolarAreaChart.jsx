@@ -1,13 +1,13 @@
 import React from "react";
 import { PolarArea } from "react-chartjs-2";
 
-const PolarAreaChart = () => {
+const PolarAreaChart = ({ data, labels, name = "Pass Name Prop" }) => {
   // Sample data for the polar area chart
-  const data = {
-    labels: ["Label 1", "Label 2", "Label 3", "Label 4", "Label 5"],
+  const chartData = {
+    labels: data?.map((e, i) => name + "-" + (i + 1)),
     datasets: [
       {
-        data: [20, 30, 25, 15, 10], // Sample data values
+        data: data, // Sample data values
         backgroundColor: [
           "#FF6384",
           "#36A2EB",
@@ -25,11 +25,18 @@ const PolarAreaChart = () => {
       },
     ],
   };
+  
+  const options = {
+    plugins: {
+      legend: {
+        display: false, // Set to false to hide the legend
+      },
+    },
+  };
 
   return (
     <div>
-      <h2>Polar Area Chart Example</h2>
-      <PolarArea data={data} />
+      <PolarArea data={chartData} options={options} />
     </div>
   );
 };

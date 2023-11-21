@@ -1,10 +1,10 @@
 import React from "react";
 import { Doughnut } from "react-chartjs-2";
 
-const DoughnutChart = ({data}) => {
+const DoughnutChart = ({ data, labels, name = "Pass Name Prop" }) => {
   // Sample data for the doughnut chart
   const dataChart = {
-    // labels: ["Label 1", "Label 2", "Label 3"],
+    labels: data?.map((e, i) => name + "-" + (i + 1)),
     datasets: [
       {
         data: data, // Sample data values
@@ -16,11 +16,9 @@ const DoughnutChart = ({data}) => {
 
   return (
     <div>
-      <h2>Doughnut Chart Example</h2>
       <Doughnut data={dataChart} />
     </div>
   );
 };
 
 export default DoughnutChart;
-
