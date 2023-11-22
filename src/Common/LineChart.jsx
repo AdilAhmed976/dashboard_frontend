@@ -51,6 +51,9 @@ const createGradientFill = (color1, color2) => {
             size: 16, // Change x-axis label text size
           },
         },
+        grid: {
+          display: false,
+        },
       },
     },
     plugins: {

@@ -6,12 +6,22 @@ const RadarChart = ({ data, name = "pass props name" }) => {
     labels: data,
     datasets: [
       {
-        // label: name,
+        label: `${name}-data-1`,
         data: data,
-        backgroundColor: "rgba(75, 192, 192, 0.2)",
+        backgroundColor: "rgba(75, 192, 192, 0.4)",
         borderColor: "rgba(75, 192, 192, 1)",
         // borderColor: "#7064e8",
         borderWidth: 2,
+        fill: true,
+      },
+      {
+        label: `${name}-data-2`,
+        data: data.map((r) => r + Math.floor(Math.random() * 50) + 1),
+        backgroundColor: "rgba(75, 192, 192, 0.2)",
+        borderColor: "rgba(75, 192, 192, 1)",
+        borderColor: "#26d6eb",
+        borderWidth: 2,
+        fill: true,
       },
       // You can add more datasets if needed
     ],
