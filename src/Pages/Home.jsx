@@ -8,6 +8,7 @@ import RadarChart from "../Common/RadarChart";
 import PolarAreaChart from "../Common/PolarAreaChart";
 import PaginationButton from "../Components/PaginationButton";
 import { countriesData, sourceData, topicsData } from "../Common/global";
+import Filters from "../Components/Filters";
 
 const Home = () => {
   const [allData, setAllData] = useState(null);
@@ -18,12 +19,6 @@ const Home = () => {
   const [country, setCountry] = useState(null);
   const [topics, setTopics] = useState(null);
   const [region, setRegion] = useState(null);
-
-  const [filter, setFilter] = useState({
-    country: { filter: countriesData, data: [] },
-    topic: { filter: topicsData, data: [] },
-    source: { filter: sourceData, data: [] },
-  });
 
   const stateFunctions = {
     likelihood: (value) => setLikelihood(value),
@@ -47,26 +42,17 @@ const Home = () => {
 
   const getData = async () => {
     try {
-      const res = await axios.get(getBaseUrl() + `?limit=${100}`);
+      const res = await axios.get(getBaseUrl());
       if (res.status === 200) {
         setTimeout(() => {
-          // setAllData(res?.data);
-          // setLikelihood(res?.data?.map((r) => r?.likelihood));
-          // setRelevance(res?.data?.map((r) => r?.relevance));
-          // setIntensity(res?.data?.map((r) => r?.intensity));
-          // setCountry(res?.data?.map((r) => r?.country));
-          // setTopics(res?.data?.map((r) => r?.topic));
-          // setRegion(res?.data?.map((r) => r?.region));
-
-          const uniqueSet = new Set(res?.data?.map((r) => r?.source));
-
-          // Convert the Set back to an array
-          const uniqueArray = [...uniqueSet];
-          console.log(
-            "🚀 ~ file: Home.jsx:63 ~ setTimeout ~ uniqueArray:",
-            uniqueArray
-          );
-        }, 0);
+          setAllData(res?.data);
+          setLikelihood(res?.data?.map((r) => r?.likelihood));
+          setRelevance(res?.data?.map((r) => r?.relevance));
+          setIntensity(res?.data?.map((r) => r?.intensity));
+          setCountry(res?.data?.map((r) => r?.country));
+          setTopics(res?.data?.map((r) => r?.topic));
+          setRegion(res?.data?.map((r) => r?.region));
+        }, 1000);
       }
     } catch (error) {}
   };
@@ -115,17 +101,9 @@ const Home = () => {
   };
 
   useEffect(() => {
-    // getData();
-    // setTimeout(() => {
-    //   setAllData(data);
-    //   setLikelihood(data?.map((r) => r?.likelihood));
-    //   setRelevance(data?.map((r) => r?.relevance));
-    //   setIntensity(data?.map((r) => r?.intensity));
-    //   setCountry(data?.map((r) => r?.country));
-    //   setTopics(data?.map((r) => r?.topic));
-    //   setRegion(data?.map((r) => r?.region));
-    // }, 1000);
+    getData(); 
   }, []);
+  
   return (
     <div className="p-2 pl-4">
       <div className="grid grid-cols-3 gap-6 p-4">
@@ -213,32 +191,7 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="p-4">
-        <text className="text-2xl mb-4f">Filters</text>
-        <div className="grid grid-cols-2 gap-6">
-          <div className="col-span-1 flex border border-2 min-h-90 shadow-lg rounded-2xl w-full h-full p-10">
-            <p>Country</p>
-            <select  >
-              {filter?.country?.filter?.map((e) => {
-                return (
-                  <option key={e} value={e}>
-                    {e}
-                  </option>
-                );
-              })}
-            </select>
-          </div>
-          <div className="col-span-1 flex border border-2 min-h-90 shadow-lg rounded-2xl w-full h-full p-10">
-            1
-          </div>
-          <div className="col-span-1 flex border border-2 min-h-90 shadow-lg rounded-2xl w-full h-full p-10">
-            1
-          </div>
-          <div className="col-span-1 flex border border-2 min-h-90 shadow-lg rounded-2xl w-full h-full p-10">
-            1
-          </div>
-        </div>
-      </div>
+      <Filters />
     </div>
   );
 };
