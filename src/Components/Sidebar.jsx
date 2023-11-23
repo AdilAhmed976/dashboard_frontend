@@ -37,7 +37,7 @@ const Sidebar = ({ children }) => {
           {sidebarMenus?.map((Menu, index) => (
             <button
               key={index}
-              className={`flex w-[100%] align-center p-2 rounded-md border-2 cursor-pointer hover:bg-primary hover:text-black text-gray-500 text-sm items-center mb-3
+              className={`flex w-[100%] align-center p-2 rounded-md border-2 cursor-pointer hover:bg-primary hover:text-white text-gray-500 text-sm items-center mb-3
               ${isSidebarOpen ? "" : "justify-center"}`}
               onClick={() => navigate(Menu.src)}
             >
