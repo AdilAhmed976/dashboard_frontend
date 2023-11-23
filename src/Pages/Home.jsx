@@ -40,6 +40,12 @@ const Home = () => {
     region: 1,
   });
 
+  const [loading, setLoading] = useState({
+    likelihood: false,
+    relevance: false,
+    intensity: false,
+  });
+
   const getData = async () => {
     try {
       const res = await axios.get(getBaseUrl());
@@ -52,6 +58,18 @@ const Home = () => {
           setCountry(res?.data?.map((r) => r?.country));
           setTopics(res?.data?.map((r) => r?.topic));
           setRegion(res?.data?.map((r) => r?.region));
+          setLoading({ likelihood: false, relevance: false, intensity: false });
+          // Convert the array to a Set to remove duplicates
+          // const setWithoutDuplicates = new Set(res.data.map((r) => r?.sector));
+
+          // // Convert the Set back to an array
+          // const arrayWithoutDuplicates = [...setWithoutDuplicates];
+          // console.log(
+          //   "🚀 ~ file: Home.jsx:67 ~ setTimeout ~ arrayWithoutDuplicates:",
+          //   arrayWithoutDuplicates.map((e) => {
+          //     return { value: e, label: e };
+          //   })
+          // );
         }, 1000);
       }
     } catch (error) {}
@@ -83,6 +101,9 @@ const Home = () => {
     let keys = Object.keys(pagination);
 
     if (keys.includes(name)) {
+      setLoading((prev) => {
+        return { ...prev, [name]: true };
+      });
       setPagination((prev) => {
         return { ...prev, [name]: prev?.[name] + 1 };
       });
@@ -94,6 +115,11 @@ const Home = () => {
           if (res.status === 200) {
             if (!stateFunctions?.[name]) return;
             stateFunctions?.[name](res.data?.map((r) => r?.[name]));
+            setTimeout(() => {
+              setLoading((prev) => {
+                return { ...prev, [name]: false };
+              });
+            }, 1000);
           }
         } catch (error) {}
       })();
@@ -101,19 +127,20 @@ const Home = () => {
   };
 
   useEffect(() => {
-    getData(); 
+    getData();
   }, []);
-  
+
   return (
-    <div className="p-2 pl-4">
+    <div className="p-2 pl-4 bg-teal-100 min-h-[100vh]">
       <div className="grid grid-cols-3 gap-6 p-4">
         {/* Likelihood */}
-        <div className="col-span-2 flex">
+        <div className="col-span-2 flex bg-white rounded-2xl min-h-[300px]">
           {allData?.likelihood?.length === 0 ||
           likelihood?.length === 0 ||
-          allData == null ? (
+          allData == null ||
+          loading.likelihood ? (
             <div className="flex justify-center items-center p-2 w-full border-2 shadow-lg">
-              <Loader type="cylon" />
+              <Loader size={50} color={"#7367f0"} />
             </div>
           ) : (
             <div className="border-2 p-2 rounded-2xl shadow-lg w-full h-full">
@@ -130,12 +157,13 @@ const Home = () => {
         </div>
 
         {/* Relevance */}
-        <div className="col-span-1 flex">
+        <div className="col-span-1 flex bg-white rounded-2xl min-h-[300px]">
           {allData?.relevance?.length === 0 ||
           relevance?.length === 0 ||
-          allData == null ? (
+          allData == null ||
+          loading.relevance ? (
             <div className="flex justify-center items-center p-2 w-full h-full border-2 shadow-lg">
-              <Loader type="cylon" />
+              <Loader size={50} color={"#7367f0"} />
             </div>
           ) : (
             <div className="p-2 rounded-2xl border-2 border-black-800 shadow-lg w-full h-full">
@@ -152,12 +180,13 @@ const Home = () => {
         </div>
 
         {/* Intensity */}
-        <div className="col-span-1 flex">
+        <div className="col-span-1 flex bg-white rounded-2xl min-h-[300px]">
           {allData?.intensity?.length === 0 ||
           intensity?.length === 0 ||
-          allData == null ? (
+          allData == null ||
+          loading.intensity ? (
             <div className="flex justify-center items-center p-2 w-full h-full border-2 shadow-lg">
-              <Loader />
+              <Loader size={50} color={"#7367f0"} />
             </div>
           ) : (
             <div className="p-2 border-2 shadow-lg rounded-2xl w-full h-full">
@@ -174,10 +203,10 @@ const Home = () => {
         </div>
 
         {/* Year */}
-        <div className="col-span-2 flex">
+        <div className="col-span-2 flex bg-white rounded-2xl min-h-[300px]">
           {allData?.year?.length === 0 || allData == null ? (
             <div className="flex justify-center items-center p-2 w-full h-full border-2 shadow-lg min-h-90">
-              <Loader type="cylon" />
+              <Loader size={50} color={"#7367f0"} />
             </div>
           ) : (
             <div className="p-2 border-2 shadow-lg rounded-2xl w-full h-full ">

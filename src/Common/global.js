@@ -3,7 +3,7 @@ import { RxDashboard } from "react-icons/rx";
 
 export const sidebarMenus = [
   { title: "Home", src: "/", icon: <IoHomeOutline size={24} /> },
-  { title: "Dashboard", src: "/dashboard", icon: <RxDashboard size={24} /> },
+  // { title: "Dashboard", src: "/dashboard", icon: <RxDashboard size={24} /> },
 ];
 
 export const countriesData = [
@@ -695,5 +695,65 @@ export const sourceData = [
   {
     value: "Gii Research",
     label: "Gii Research",
+  },
+];
+
+export const sectorData = [
+  {
+    value: "Energy",
+    label: "Energy",
+  },
+  {
+    value: "Healthcare",
+    label: "Healthcare",
+  },
+  {
+    value: "Environment",
+    label: "Environment",
+  },
+  {
+    value: "Aerospace & defence",
+    label: "Aerospace & defence",
+  },
+  {
+    value: "Retail",
+    label: "Retail",
+  },
+  {
+    value: "Financial services",
+    label: "Financial services",
+  },
+  {
+    value: "Manufacturing",
+    label: "Manufacturing",
+  },
+
+  {
+    value: "Information Technology",
+    label: "Information Technology",
+  },
+  {
+    value: "Food & agriculture",
+    label: "Food & agriculture",
+  },
+  {
+    value: "Automotive",
+    label: "Automotive",
+  },
+  {
+    value: "Government",
+    label: "Government",
+  },
+  {
+    value: "Construction",
+    label: "Construction",
+  },
+  {
+    value: "Support services",
+    label: "Support services",
+  },
+  {
+    value: "Security",
+    label: "Security",
   },
 ];
